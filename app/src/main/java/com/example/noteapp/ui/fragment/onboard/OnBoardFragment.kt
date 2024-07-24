@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.noteapp.ui.adapter.OnBoardViewPagerAdapter
 import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentOnBoardBinding
+import com.example.noteapp.ui.adapter.OnBoardViewPagerAdapter
 
 class OnBoardFragment : Fragment() {
     private lateinit var binding: FragmentOnBoardBinding
