@@ -1,10 +1,10 @@
-package com.example.noteapp.ui.fragments.onBoard.adapters
+package com.example.noteapp.ui.adapter
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.noteapp.ui.fragments.onBoard.OnBoardViewPagerFragment
-import com.example.noteapp.ui.fragments.onBoard.OnBoardViewPagerFragment.Companion.ARG_ONBOARD_POSITION
+import com.example.noteapp.ui.fragment.onboard.OnBoardViewPagerFragment
+import com.example.noteapp.ui.fragment.onboard.OnBoardViewPagerFragment.Companion.ARG_ONBOARD_POSITION
 
 class OnBoardViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {

@@ -1,4 +1,4 @@
-package com.example.noteapp.ui.fragments.onBoard
+package com.example.noteapp.ui.fragment.onboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.noteapp.ui.fragments.onBoard.adapters.OnBoardViewPagerAdapter
+import com.example.noteapp.ui.adapter.OnBoardViewPagerAdapter
 import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentOnBoardBinding
 
@@ -48,15 +48,14 @@ class OnBoardFragment : Fragment() {
             }
         })
 
-        binding.apply {
-            tvSkip.setOnClickListener {
-                if (currentItem < 3) {
-                    setCurrentItem(currentItem + 2, true)
-                }
+        binding.tvSkip.setOnClickListener {
+            if (currentItem < 3) {
+                setCurrentItem(currentItem + 2, true)
             }
-            tvStart.setOnClickListener {
-                findNavController().navigate(R.id.action_onBoardFragment_to_noteFragment3)
-            }
+        }
+
+        binding.tvStart.setOnClickListener {
+            findNavController().navigate(R.id.action_onBoardFragment_to_noteFragment)
         }
     }
 }
