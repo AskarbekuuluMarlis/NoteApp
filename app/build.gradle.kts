@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp")
-
 }
 
 android {
@@ -50,27 +50,19 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.tbuonomo:dotsindicator:4.3")
+    implementation(libs.dotsindicator)
 
     // Navigation Components
-    val navVersion = "2.7.7"
-
-    // Kotlin
-    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
-    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     // Lottie
-    val lottieVersion = "6.4.0"
-    implementation ("com.airbnb.android:lottie:$lottieVersion")
+    implementation (libs.lottie)
 
     // Circle Indicator
-    implementation ("me.relex:circleindicator:2.1.6")
+    implementation (libs.circleindicator)
 
-    // Room
-    // Room
-    val room_version = "2.6.1"
-    implementation ("androidx.room:room-ktx:$room_version")
-    implementation ("androidx.room:room-runtime:$room_version")
-    annotationProcessor ("androidx.room:room-compiler:$room_version")
-//    ksp ("androidx.room:room-compiler:2.6.1")
+    //ROOM
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 }

@@ -21,6 +21,7 @@ class DetailNoteFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailNoteBinding
     private var colorResource: Int = R.drawable.style
+    private var noteId: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +36,25 @@ class DetailNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpListeners()
         displayCurrentDateTime()
+    }
+
+    private fun update() {
+        arguments?.let {
+            noteId = it.getInt("noteId", -1)
+        }
+        if (noteId != -1) {
+            val note = App().getInstance()?.noteDao()?.getNoteById(noteId)
+            note?.let { model ->
+                binding.etTitle.setText(model.title)
+                binding.etDescription.setText(model.description)
+                colorResource = model.color.toInt()
+                when (colorResource) {
+                    R.drawable.style -> binding.rb1.isChecked = true
+                    R.drawable.style_white -> binding.rb2.isChecked = true
+                    R.drawable.style_red -> binding.rb3.isChecked = true
+                }
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -63,17 +83,28 @@ class DetailNoteFragment : Fragment() {
             val itemDate = binding.date.text.toString()
             val itemTime = binding.time.text.toString()
 
-            // Используем App.getDatabase() для доступа к базе данных
-            App.getDatabase().noteDao().insertNote(
-                NoteModel(
+            binding.btnAdd.setOnClickListener {
+                val etTitle = binding.etTitle.text.toString()
+                val etDescription = binding.etDescription.text.toString()
+                val itemDate = binding.date.text.toString()
+                val itemTime = binding.time.text.toString()
+
+                val noteModel = NoteModel(
                     title = etTitle,
                     description = etDescription,
                     date = itemDate,
                     time = itemTime,
                     color = colorResource.toString()
                 )
-            )
-            findNavController().navigateUp()
+
+                if (noteId != -1) {
+                    noteModel.id = noteId
+                    App().getInstance()?.noteDao()?.updateNote(noteModel)
+                } else {
+                    App().getInstance()?.noteDao()?.insertNote(noteModel)
+                }
+                findNavController().navigateUp()
+            }
         }
 
         binding.returnBtn.setOnClickListener {

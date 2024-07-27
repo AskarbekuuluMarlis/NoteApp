@@ -7,30 +7,24 @@ import com.example.noteapp.data.db.AppDataBase
 class App : Application() {
 
     companion object {
-        private var appDatabase: AppDataBase? = null
-        private var instance: App? = null
-
-        fun getInstance(): App {
-            if (instance == null) {
-                throw IllegalStateException("Application is not created yet!")
-            }
-            return instance!!
-        }
-
-        fun getDatabase(): AppDataBase {
-            if (appDatabase == null) {
-                appDatabase = Room.databaseBuilder(
-                    getInstance().applicationContext,
-                    AppDataBase::class.java,
-                    "note.database"
-                ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
-            }
-            return appDatabase!!
-        }
+        var appDatabase: AppDataBase? = null
     }
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        getInstance()
+    }
+
+    fun getInstance(): AppDataBase? {
+        if (appDatabase == null) {
+            appDatabase = applicationContext.let {
+                Room.databaseBuilder(
+                    it,
+                    AppDataBase::class.java,
+                    "note.database"
+                ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
+            }
+        }
+        return appDatabase
     }
 }

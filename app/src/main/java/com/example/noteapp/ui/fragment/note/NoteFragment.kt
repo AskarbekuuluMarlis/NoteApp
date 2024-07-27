@@ -9,10 +9,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.noteapp.App
 import com.example.noteapp.R
+import com.example.noteapp.data.models.NoteModel
 import com.example.noteapp.databinding.FragmentNoteBinding
+import com.example.noteapp.interfaces.OnItemClick
 import com.example.noteapp.ui.adapter.NoteAdapter
 
-class NoteFragment : Fragment() {
+class NoteFragment : Fragment(),OnItemClick {
 
     private lateinit var binding: FragmentNoteBinding
     private lateinit var noteAdapter: NoteAdapter
@@ -27,7 +29,7 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        noteAdapter = NoteAdapter()
+        noteAdapter = NoteAdapter(this)
         initialize()
         setUpListeners()
         getData()
@@ -47,9 +49,14 @@ class NoteFragment : Fragment() {
     }
 
     private fun getData() {
-        App.getDatabase().noteDao().getAll().observe(viewLifecycleOwner) {
+        App().getInstance()?.noteDao()?.getAll()?.observe(viewLifecycleOwner) {
             noteAdapter.submitList(it)
         }
+    }
+
+    override fun onClick(noteModel: NoteModel) {
+        val action = NoteFragmentDirections.actionNoteFragmentToDetailNoteFragment(noteModel.id)
+        findNavController().navigate(action)
     }
 
 }
