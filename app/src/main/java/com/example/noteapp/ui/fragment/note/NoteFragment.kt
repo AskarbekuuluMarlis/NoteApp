@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.noteapp.App
 import com.example.noteapp.R
@@ -14,10 +15,12 @@ import com.example.noteapp.databinding.FragmentNoteBinding
 import com.example.noteapp.interfaces.OnItemClick
 import com.example.noteapp.ui.adapter.NoteAdapter
 
-class NoteFragment : Fragment(),OnItemClick {
+class NoteFragment : Fragment(), OnItemClick {
 
     private lateinit var binding: FragmentNoteBinding
     private lateinit var noteAdapter: NoteAdapter
+    private var isGrid: Boolean = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +48,15 @@ class NoteFragment : Fragment(),OnItemClick {
     private fun setUpListeners() = with(binding) {
         addBtn.setOnClickListener {
             findNavController().navigate(R.id.action_noteFragment_to_detailNoteFragment)
+        }
+        dashboard.setOnClickListener {
+            if (isGrid) {
+                rvNote.layoutManager = GridLayoutManager(requireContext(), 2)
+                isGrid = false
+            } else {
+                rvNote.layoutManager = LinearLayoutManager(requireContext(), )
+                isGrid = true
+            }
         }
     }
 
