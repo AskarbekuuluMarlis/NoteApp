@@ -9,4 +9,6 @@
     <string name="add">add</string>
     <string name="next">next</string>
     <string name="ready">Готова</string>
+    <string name="clientId">503849568642-pqmt0jl45conaker5sp4rlvd8n2tet3s.apps.googleusercontent.com</string>
+    <string name="audentifi">Войти через Google</string>
 </resources>
