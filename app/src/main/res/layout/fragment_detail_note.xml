@@ -84,7 +84,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:background="@drawable/style_et"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        tools:text="ghbdtn"
+        />
 
     <EditText
         android:id="@+id/et_description"
