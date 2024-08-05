@@ -1,12 +1,15 @@
 package com.example.noteapp.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.noteapp.R
 import com.example.noteapp.databinding.ActivityMainBinding
@@ -43,12 +46,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(@NonNull item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.nav_home -> {
-                navController.navigate(R.id.noteFragment)
+            R.id.noteFragment -> {
+                Log.d("main","mainee")
+                navController.navigate(R.id.chatFragment)
                 Toast.makeText(this, "Note selected", Toast.LENGTH_SHORT).show()
                 true
             }
-            R.id.nav_message -> {
+            R.id.chatFragment -> {
                 navController.navigate(R.id.chatFragment)
                 Toast.makeText(this, "Chat selected", Toast.LENGTH_SHORT).show()
                 true
